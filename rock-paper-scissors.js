@@ -34,5 +34,61 @@ randomValue = arr[Math.floor(Math.random() * arr.length)]
 
 function getComputerChoice(choicesArr) {
   choicesArr = ["Rock", "Paper", "Scissors"];
-  const randomValue = choicesArr[Math.floor(Math.random() * choicesArr.length)]
+  const randomValue = choicesArr[Math.floor(Math.random() * choicesArr.length)];
+  return randomValue;
 }
+
+/* 
+Write a function that plays a single round
+Function should take two parameters:
+1: The player selection
+2: The computer selection
+After it has taken them it should return the winner
+Example: "You Lose, Paper Beats Rock"
+It should also be case insensitive 
+
+IF the player selection is Rock AND the computer selection is Scissors output the text "You win, Rock beats Scissors"
+
+IF the player selection is Rock and the computer selection is Paper, output the text "You lose, Paper beats Rock"
+
+IF the player selection is Rock and the computer selection is Rock, output the text "A Tie, go again"
+
+IF the player selection is Scissors and the computer selection is paper, output the text "You win, Scissors beat Paper"
+
+IF the player selection is Scissors and the computer selection is Rock, output the text "You lose,  Rock beats Scissors"
+
+IF the player selection is Scissors and the computer selection is Scissors, output the text "A tie, go again"
+
+IF the player selection is Paper and the computer selection is Rock, output the text "You win, Paper Beats Rock"
+
+IF the player selection is Paper and the computer selection is Scissors, output the text "You lose, Scissors beats Rock"
+*/
+
+function playerChoice() {
+  const playerChoiceWord = prompt("Pick between Rock, Paper or Scissors", "");
+  const PlayersWord = playerChoiceWord;
+  const insensitiveWord = PlayersWord.toLowerCase();
+  const capitalizedWord =
+    insensitiveWord.charAt(0).toUpperCase() + insensitiveWord.substring(1);
+  return capitalizedWord;
+}
+// console.log(playerChoice());
+function playRound(playerSelection, computerSelection) {
+  if (
+    (playerSelection === "Rock" && computerSelection === "Scissors") ||
+    (playerSelection === "Scissors" && computerSelection === "Paper") ||
+    (playerSelection === "Paper" && computerSelection === "Rock")
+  ) {
+    return `You win, ${playerSelection} beats ${computerSelection}!`;
+  } else if (
+    (computerSelection === "Rock" && playerSelection === "Scissors") ||
+    (computerSelection === "Scissors" && playerSelection === "Paper") ||
+    (computerSelection === "Paper" && playerSelection === "Rock")
+  ) {
+    return `You lose, ${computerSelection} beats ${playerSelection}!`;
+  } else if (playerSelection === computerSelection) {
+    return "It was a tie!";
+  }
+}
+const playerSelection = playerChoice();
+const computerSelection = getComputerChoice();
