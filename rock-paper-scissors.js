@@ -72,23 +72,81 @@ function playerChoice() {
     insensitiveWord.charAt(0).toUpperCase() + insensitiveWord.substring(1);
   return capitalizedWord;
 }
-// console.log(playerChoice());
+
+let playerScore = 0;
+let computerScore = 0;
+
 function playRound(playerSelection, computerSelection) {
   if (
     (playerSelection === "Rock" && computerSelection === "Scissors") ||
     (playerSelection === "Scissors" && computerSelection === "Paper") ||
     (playerSelection === "Paper" && computerSelection === "Rock")
   ) {
-    return `You win, ${playerSelection} beats ${computerSelection}!`;
+    playerScore++;
+    return console.log(
+      `You win, ${playerSelection} beats ${computerSelection}!`
+    );
   } else if (
     (computerSelection === "Rock" && playerSelection === "Scissors") ||
     (computerSelection === "Scissors" && playerSelection === "Paper") ||
     (computerSelection === "Paper" && playerSelection === "Rock")
   ) {
-    return `You lose, ${computerSelection} beats ${playerSelection}!`;
+    computerScore++;
+    return console.log(
+      `You lose, ${computerSelection} beats ${playerSelection}!`
+    );
   } else if (playerSelection === computerSelection) {
-    return "It was a tie!";
+    return console.log("It was a tie!");
   }
 }
-const playerSelection = playerChoice();
-const computerSelection = getComputerChoice();
+
+/*
+Part 3:
+Write a function called game()
+Use previous function inside it 
+Play a 5 round game that keeps score and reports a winner/loser at the end
+
+First, declare a count variable for both the player and the computer
+Initalize the count variable at 0
+IF they win the game have it increase by 1
+IF it is a draw do not increase it by anything but keep it as it is
+When the player or the computer reach a score of 5, have the game end
+When the game ends, print the winner
+If the player has reached 5 won games, print out that the player has won
+IF the computer has reached 5 won games print out that the computer has won
+
+What if they want to specify the number of rounds they want to play?
+Use another function for this task with a prompt asking them to enter the number of rounds
+Convert the string to a number
+Then use the callback function on that in its own function
+*/
+function game() {
+  const playerSelection = playerChoice();
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+}
+
+function gameRounds(numberOfTimes, gameCallback) {
+  for (let i = numberOfTimes; i > 0; i--) {
+    gameCallback(i);
+  }
+}
+function fullGame() {
+  const numberOfRounds = Number(
+    prompt("How many Rounds do you want to play for?", "")
+  );
+  gameRounds(numberOfRounds, game);
+}
+
+function winner() {
+  fullGame();
+  if (playerScore > computerScore) {
+    return `Congrats you win with a score of ${playerScore} to a score of ${computerScore}!`;
+  } else if (computerScore > playerScore) {
+    return `Well... tough luck, the computer has won with a score of ${computerScore} to your score of ${playerScore} try again another time!`;
+  } else {
+    return `The game was a tiebreaker with your score of ${playerScore} to their score of ${computerScore}!`;
+  }
+}
+
+console.log(winner());
