@@ -35,6 +35,4 @@ randomValue = arr[Math.floor(Math.random() * arr.length)]
 function getComputerChoice(choicesArr) {
   choicesArr = ["Rock", "Paper", "Scissors"];
   const randomValue = choicesArr[Math.floor(Math.random() * choicesArr.length)]
-  console.log(randomValue);
 }
-getComputerChoice();
