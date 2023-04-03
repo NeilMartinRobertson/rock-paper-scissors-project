@@ -32,6 +32,7 @@ randomValue = arr[Math.floor(Math.random() * arr.length)]
 
 */
 
+// Calculates the random choice for the Computer
 function getComputerChoice(choicesArr) {
   choicesArr = ["Rock", "Paper", "Scissors"];
   const randomValue = choicesArr[Math.floor(Math.random() * choicesArr.length)];
@@ -63,7 +64,7 @@ IF the player selection is Paper and the computer selection is Rock, output the 
 
 IF the player selection is Paper and the computer selection is Scissors, output the text "You lose, Scissors beats Rock"
 */
-
+// Gets the Player's and choice and does a case-insensitive function on it
 function playerChoice() {
   const playerChoiceWord = prompt("Pick between Rock, Paper or Scissors", "");
   const playersWord = playerChoiceWord;
@@ -73,8 +74,12 @@ function playerChoice() {
   return capitalizedWord;
 }
 
+//Declares the counters
+
 let playerScore = 0;
 let computerScore = 0;
+
+// Base function that will look at the results and determines what wins
 
 function playRound(playerSelection, computerSelection) {
   if (
@@ -107,7 +112,7 @@ Use previous function inside it
 Play a 5 round game that keeps score and reports a winner/loser at the end
 
 First, declare a count variable for both the player and the computer
-Initalize the count variable at 0
+Initialize the count variable at 0
 IF they win the game have it increase by 1
 IF it is a draw do not increase it by anything but keep it as it is
 When the player or the computer reach a score of 5, have the game end
@@ -120,23 +125,33 @@ Use another function for this task with a prompt asking them to enter the number
 Convert the string to a number
 Then use the callback function on that in its own function
 */
+
+// Plays a round of Rock, Paper and Scissors
+
 function game() {
   const playerSelection = playerChoice();
   const computerSelection = getComputerChoice();
   playRound(playerSelection, computerSelection);
 }
 
+// The callback that determines how many times the game is run
+
 function gameRounds(numberOfTimes, gameCallback) {
   for (let i = numberOfTimes; i > 0; i--) {
     gameCallback(i);
   }
 }
+
+//Deciding how many rounds they will be in the game getting the user's input and playing that
+
 function fullGame() {
   const numberOfRounds = Number(
     prompt("How many Rounds do you want to play for?", "")
   );
   gameRounds(numberOfRounds, game);
 }
+
+// Finds out the Winner of the game
 
 function winner() {
   fullGame();
