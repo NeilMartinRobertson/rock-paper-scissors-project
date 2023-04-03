@@ -102,6 +102,10 @@ function playRound(playerSelection, computerSelection) {
     );
   } else if (playerSelection === computerSelection) {
     return console.log("It was a tie!");
+  } else {
+    alert(
+      "You have entered in a value other than Rock, Paper or Scissors. Please enter in the correct value"
+    );
   }
 }
 
