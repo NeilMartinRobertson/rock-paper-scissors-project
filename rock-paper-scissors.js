@@ -66,7 +66,7 @@ IF the player selection is Paper and the computer selection is Scissors, output 
 
 function playerChoice() {
   const playerChoiceWord = prompt("Pick between Rock, Paper or Scissors", "");
-  const PlayersWord = playerChoiceWord;
+  const playersWord = playerChoiceWord;
   const insensitiveWord = PlayersWord.toLowerCase();
   const capitalizedWord =
     insensitiveWord.charAt(0).toUpperCase() + insensitiveWord.substring(1);
