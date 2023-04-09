@@ -31,6 +31,7 @@ Finding a Random Value:
 randomValue = arr[Math.floor(Math.random() * arr.length)]
 
 */
+//UI
 
 // Calculates the random choice for the Computer
 function getComputerChoice(choicesArr) {
@@ -65,49 +66,75 @@ IF the player selection is Paper and the computer selection is Rock, output the 
 IF the player selection is Paper and the computer selection is Scissors, output the text "You lose, Scissors beats Rock"
 */
 // Gets the Player's and choice and does a case-insensitive function on it
-function playerChoice() {
-  const playerChoiceWord = prompt("Pick between Rock, Paper or Scissors", "");
-  const playersWord = playerChoiceWord;
-  const insensitiveWord = playersWord.toLowerCase();
-  const capitalizedWord =
-    insensitiveWord.charAt(0).toUpperCase() + insensitiveWord.substring(1);
-  return capitalizedWord;
-}
 
 //Declares the counters
 
 let playerScore = 0;
 let computerScore = 0;
-
 // Base function that will look at the results and determines what wins
+const rock = document.getElementById("Rock");
+const paper = document.getElementById("Paper");
+const scissors = document.getElementById("Scissors");
+const resultDiv = document.getElementById("results");
+const scoreDiv = document.getElementById("score");
+rock.addEventListener("click", playRound);
+paper.addEventListener("click", playRound);
+scissors.addEventListener("click", playRound);
 
-function playRound(playerSelection, computerSelection) {
+//I need to make play round respond to to the event listener so it outputs the correct values based on the button that is clicked
+//I do this by making a const that equals the value for each of the buttons
+//This need to be done for while the player score is under or equal to 5
+//Once the score has reached 5, we then want to see who the winner is
+//We want to disable the buttons once a score has reached 5
+
+function playRound(event) {
+  const playerSelection = event.target;
+  const computerSelection = getComputerChoice();
   if (
-    (playerSelection === "Rock" && computerSelection === "Scissors") ||
-    (playerSelection === "Scissors" && computerSelection === "Paper") ||
-    (playerSelection === "Paper" && computerSelection === "Rock")
+    (playerSelection.value === "Rock" && computerSelection === "Scissors") ||
+    (playerSelection.value === "Paper" && computerSelection === "Rock") ||
+    (playerSelection.value === "Scissors" && computerSelection === "Paper")
   ) {
     playerScore++;
-    return console.log(
-      `You win, ${playerSelection} beats ${computerSelection}!`
-    );
+    resultDiv.textContent = `It was a victory with ${playerSelection.value} beating ${computerSelection}.`;
+    scoreDiv.textContent = `The score is now ${playerScore} - ${computerScore}`;
   } else if (
-    (computerSelection === "Rock" && playerSelection === "Scissors") ||
-    (computerSelection === "Scissors" && playerSelection === "Paper") ||
-    (computerSelection === "Paper" && playerSelection === "Rock")
+    (playerSelection.value === "Rock" && computerSelection === "Paper") ||
+    (playerSelection.value === "Paper" && computerSelection === "Scissors") ||
+    (playerSelection.value === "Scissors" && computerSelection === "Rock")
   ) {
     computerScore++;
-    return console.log(
-      `You lose, ${computerSelection} beats ${playerSelection}!`
-    );
-  } else if (playerSelection === computerSelection) {
-    return console.log("It was a tie!");
-  } else {
-    alert(
-      "You have entered in a value other than Rock, Paper or Scissors. Please enter in the correct value"
-    );
+    resultDiv.textContent = `It was a loss with ${playerSelection.value} losing to ${computerSelection}`;
+    scoreDiv.textContent = `The score is now ${playerScore} - ${computerScore}`;
+  } else if (playerSelection.value === computerSelection) {
+    resultDiv.textContent = `It was a tie with ${playerSelection.value} equaling ${computerSelection}`;
+    scoreDiv.textContent = `The score is now ${playerScore} - ${computerScore}`;
   }
 }
+
+function disableButton() {}
+
+// if (
+//   (playerSelection === "Rock" && computerSelection === "Scissors") ||
+//   (playerSelection === "Scissors" && computerSelection === "Paper") ||
+//   (playerSelection === "Paper" && computerSelection === "Rock")
+// ) {
+//   playerScore++;
+//   return console.log(
+//     `You win, ${playerSelection} beats ${computerSelection}!`
+//   );
+// } else if (
+//   (computerSelection === "Rock" && playerSelection === "Scissors") ||
+//   (computerSelection === "Scissors" && playerSelection === "Paper") ||
+//   (computerSelection === "Paper" && playerSelection === "Rock")
+// ) {
+//   computerScore++;
+//   return console.log(
+//     `You lose, ${computerSelection} beats ${playerSelection}!`
+//   );
+// } else if (playerSelection === computerSelection) {
+//   return console.log("It was a tie!");
+// }
 
 /*
 Part 3:
@@ -130,42 +157,32 @@ Convert the string to a number
 Then use the callback function on that in its own function
 */
 
-// Plays a round of Rock, Paper and Scissors
+//Other Code
 
-function game() {
-  const playerSelection = playerChoice();
-  const computerSelection = getComputerChoice();
-  playRound(playerSelection, computerSelection);
-}
+// function fullGame() {
+//   const numberOfRounds = Number(
+//     prompt("How many Rounds do you want to play for?", "")
+//   );
+//   gameRounds(numberOfRounds, game);
+// }
 
-// The callback that determines how many times the game is run
+// function gameRounds(numberOfTimes, gameCallback) {
+//   for (let i = numberOfTimes; i > 0; i--) {
+//     gameCallback(i);
+//   }
+// }
 
-function gameRounds(numberOfTimes, gameCallback) {
-  for (let i = numberOfTimes; i > 0; i--) {
-    gameCallback(i);
-  }
-}
+// function playerChoice() {
+//   const playerChoiceWord = prompt("Pick between Rock, Paper or Scissors", "");
+//   const playersWord = playerChoiceWord;
+//   const insensitiveWord = playersWord.toLowerCase();
+//   const capitalizedWord =
+//     insensitiveWord.charAt(0).toUpperCase() + insensitiveWord.substring(1);
+//   return capitalizedWord;
+// }
 
-//Deciding how many rounds they will be in the game getting the user's input and playing that
-
-function fullGame() {
-  const numberOfRounds = Number(
-    prompt("How many Rounds do you want to play for?", "")
-  );
-  gameRounds(numberOfRounds, game);
-}
-
-// Finds out the Winner of the game
-
-function winner() {
-  fullGame();
-  if (playerScore > computerScore) {
-    return `Congrats you win with a score of ${playerScore} to a score of ${computerScore}!`;
-  } else if (computerScore > playerScore) {
-    return `Well... tough luck, the computer has won with a score of ${computerScore} to your score of ${playerScore} try again another time!`;
-  } else {
-    return `The game was a tiebreaker with your score of ${playerScore} to their score of ${computerScore}!`;
-  }
-}
-
-console.log(winner());
+// function game() {
+//   const playerSelection = playerChoice();
+//   const computerSelection = getComputerChoice();
+//   playRound(playerSelection, computerSelection);
+// }
