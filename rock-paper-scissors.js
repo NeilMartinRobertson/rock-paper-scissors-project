@@ -77,10 +77,11 @@ const paper = document.getElementById("Paper");
 const scissors = document.getElementById("Scissors");
 const resultDiv = document.getElementById("results");
 const scoreDiv = document.getElementById("score");
+const winnerDiv = document.getElementById("winner");
+const buttons = document.querySelectorAll("button");
 rock.addEventListener("click", playRound);
 paper.addEventListener("click", playRound);
 scissors.addEventListener("click", playRound);
-
 //I need to make play round respond to to the event listener so it outputs the correct values based on the button that is clicked
 //I do this by making a const that equals the value for each of the buttons
 //This need to be done for while the player score is under or equal to 5
@@ -110,9 +111,17 @@ function playRound(event) {
     resultDiv.textContent = `It was a tie with ${playerSelection.value} equaling ${computerSelection}`;
     scoreDiv.textContent = `The score is now ${playerScore} - ${computerScore}`;
   }
+  if (playerScore === 5 || computerScore === 5) {
+    buttons.forEach((button) => (button.disabled = true));
+    resultDiv.textContent = "";
+    scoreDiv.textContent = "";
+    if (playerScore > computerScore) {
+      winnerDiv.textContent = `You win with a score of ${playerScore} to a score of ${computerScore}`;
+    } else {
+      winnerDiv.textContent = `You lose with a score ${playerScore} to a score of ${computerScore}`;
+    }
+  }
 }
-
-function disableButton() {}
 
 // if (
 //   (playerSelection === "Rock" && computerSelection === "Scissors") ||
